@@ -4,19 +4,15 @@
 @section scripts{
     <script src="~/Scripts/angular.js"></script>
 }
-<br />
-<br />
-<br />
-<div ng-app="Home" class="row">
-    <div ng-controller="gamedata">
-        {{gameData}}
+
+<div class="jumbotron">
+    <div ng-app="Home" class="row">
+        <div ng-controller="gamedata">
+            {{gameData.FundsDrivers[0]}}
+        </div>
     </div>
-
-    <input type="text" ng-model="name" />
-
-    {{name}}
-
 </div>
+
 <script>
     var app = angular.module("Home", []);
     app.controller("gamedata",

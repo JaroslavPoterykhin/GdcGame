@@ -1,8 +1,5 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Web;
-using System.Web.Mvc;
+﻿using System.Web.Mvc;
+using EntityFX.EconomicsArcade.Utils.ClientProxy.Manager;
 
 namespace EntityFX.EconomicsArcade.Presentation.WebApplication.Controllers
 {
@@ -10,7 +7,15 @@ namespace EntityFX.EconomicsArcade.Presentation.WebApplication.Controllers
     {
         public ActionResult Index()
         {
+            var simpleUserManagerClient = new SimpleUserManagerClient("net.tcp://localhost:8555/EntityFX.EconomicsArcade.Manager/EntityFX.EconomicsArcade.Contract.Manager.UserManager.ISimpleUserManager");
+            if (!simpleUserManagerClient.Exists(User.Identity.Name))
+            {
+                simpleUserManagerClient.Create(User.Identity.Name);
+            }
 
+            var sessionManagerClient = new SessionManagerClient("net.tcp://localhost:8555/EntityFX.EconomicsArcade.Manager/EntityFX.EconomicsArcade.Contract.Manager.SessionManager.ISessionManager");
+            var sessionGuid = sessionManagerClient.AddSession(User.Identity.Name);
+            System.Web.HttpContext.Current.Session[User.Identity.Name] = sessionGuid;
             return View();
         }
 
