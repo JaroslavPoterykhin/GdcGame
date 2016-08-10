@@ -1,0 +1,28 @@
+﻿<div class="row">
+    <div class="col-md-3 col-xs-6" ng-repeat="fundsDriver in fundsDrivers">
+        <a class="thumbnail fund-driver-block" href="#{{fundsDriver.Id}}" data-id="{{fundsDriver.Id}}" ng-click="buyFundDriver(fundsDriver.Id)">
+            <div class="row">
+                <div class="col-xs-4">
+                    <div ng-repeat="incrementor in fundsDriver.Incrementors track by $index">
+                        <p class="incrementor" ng-class="{'text-primary':$index == 0,'text-info':$index == 1,'text-success':$index == 2}">
+                            +{{incrementor.Value}}<span ng-if="incrementor.IncrementorType == 1">%</span>
+                        </p>
+                    </div>
+                </div>
+                <div class="col-xs-4">
+                    <img src="/Content/Images/water.svg" alt="water" />
+                </div>
+                <div class="col-xs-4">
+                    <p class="buy-vount-multiplier text-right">x{{fundsDriver.BuyCount}}</p>
+                </div>
+            </div>
+            <div class="caption" ng-if="fundsDriver.IsActive">
+                <strong>{{fundsDriver.Name}}</strong>
+                <div>{{fundsDriver.Value | currency}}</div>
+            </div>
+            <div class="caption" ng-if="!fundsDriver.IsActive">
+                <strong>Need <span class="text-primary">{{fundsDriver.UnlockValue}}</span> to buy</strong>
+            </div>
+        </a>
+    </div>
+</div>
